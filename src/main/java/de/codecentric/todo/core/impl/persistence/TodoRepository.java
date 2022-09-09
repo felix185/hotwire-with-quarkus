@@ -51,4 +51,12 @@ public interface TodoRepository {
      * @return the ID of the newly added todo.
      */
     UUID add(Todo todo);
+
+    /**
+     * Updates a todo.
+     *
+     * @param todo the todo to be updated.
+     * @return the ID of the updated todo.
+     */
+    UUID update(Todo todo);
 }

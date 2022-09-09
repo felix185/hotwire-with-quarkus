@@ -3,6 +3,7 @@ package de.codecentric.todo.core.impl.business;
 import de.codecentric.common.errorhandling.ErrorCode;
 import de.codecentric.common.errorhandling.exception.BusinessException;
 import de.codecentric.common.logging.ILogger;
+import de.codecentric.todo.core.impl.persistence.Microstream;
 import de.codecentric.todo.core.impl.persistence.TodoRepository;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -25,7 +26,7 @@ public class TodoService {
     private final TodoRepository repository;
 
     @Inject
-    TodoService(TodoRepository repository) {
+    TodoService(@Microstream TodoRepository repository) {
         this.repository = repository;
     }
 
@@ -40,6 +41,7 @@ public class TodoService {
     public void markCompleted(UUID todoId) {
         Todo existing = findById(todoId);
         existing.markComplete();
+        this.repository.update(existing);
     }
 
     public Todo findById(UUID todoId) {

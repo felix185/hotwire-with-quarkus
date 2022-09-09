@@ -15,6 +15,7 @@
     <quarkus.platform.version>2.11.3.Final</quarkus.platform.version>
     <skipITs>true</skipITs>
     <surefire-plugin.version>3.0.0-M7</surefire-plugin.version>
+    <microstream.version>07.00.00-MS-GA</microstream.version>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -57,6 +58,16 @@
       <groupId>io.rest-assured</groupId>
       <artifactId>rest-assured</artifactId>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>one.microstream</groupId>
+      <artifactId>microstream-storage-embedded</artifactId>
+      <version>${microstream.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>one.microstream</groupId>
+      <artifactId>microstream-storage-embedded-configuration</artifactId>
+      <version>${microstream.version}</version>
     </dependency>
   </dependencies>
   <build>

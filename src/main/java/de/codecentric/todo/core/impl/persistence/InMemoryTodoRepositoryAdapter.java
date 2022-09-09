@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
  * @author Felix Riess, codecentric AG
  * @since 18 Aug 2022
  */
+@InMemory
 @ApplicationScoped
 public class InMemoryTodoRepositoryAdapter implements TodoRepository {
 
@@ -55,6 +56,12 @@ public class InMemoryTodoRepositoryAdapter implements TodoRepository {
     @Override
     public UUID add(Todo todo) {
         this.todoList.add(todo);
+        return todo.getId();
+    }
+
+    @Override
+    public UUID update(Todo todo) {
+        // we have to do nothing here. reference is already updated as todo from list is accessed.
         return todo.getId();
     }
 }
