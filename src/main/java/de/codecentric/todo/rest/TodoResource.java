@@ -1,5 +1,6 @@
 package de.codecentric.todo.rest;
 
+import de.codecentric.common.logging.ILogger;
 import de.codecentric.todo.core.api.AddTodoUseCase;
 import de.codecentric.todo.core.api.MarkTodoCompleteUseCase;
 import de.codecentric.todo.core.api.QueryTodoUseCase;
@@ -8,7 +9,6 @@ import de.codecentric.todo.core.api.types.TodoDTO;
 import de.codecentric.todo.rest.types.TodoCreationForm;
 import io.quarkus.qute.CheckedTemplate;
 import io.quarkus.qute.TemplateInstance;
-import org.jboss.logging.Logger;
 import org.jboss.resteasy.reactive.MultipartForm;
 
 import javax.inject.Inject;
@@ -32,7 +32,7 @@ import java.util.UUID;
 @Produces(MediaType.TEXT_HTML)
 public class TodoResource {
 
-    private static final Logger LOG = Logger.getLogger(TodoResource.class);
+    private static final ILogger LOG = ILogger.getLogger(TodoResource.class);
 
     private final AddTodoUseCase addTodoUseCase;
     private final MarkTodoCompleteUseCase markTodoCompleteUseCase;
