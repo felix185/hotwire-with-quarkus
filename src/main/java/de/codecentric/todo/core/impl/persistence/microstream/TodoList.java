@@ -8,6 +8,12 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+/**
+ * Storage accessor for todos which also handles the locking via {@link ReadWriteLocked}.
+ *
+ * @author Felix Riess, codecentric AG
+ * @since 09 Sep 2022
+ */
 public class TodoList extends ReadWriteLocked {
 
     private final List<Todo> todoList = new ArrayList<>();

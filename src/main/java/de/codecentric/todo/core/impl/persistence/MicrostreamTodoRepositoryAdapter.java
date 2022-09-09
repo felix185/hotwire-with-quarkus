@@ -8,6 +8,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * Implementation of {@link TodoRepository} which uses Microstream under the hood.
+ *
+ * @author Felix Riess, codecentric AG
+ * @since 09 Sep 2022
+ */
 @Microstream
 @ApplicationScoped
 public class MicrostreamTodoRepositoryAdapter implements TodoRepository {

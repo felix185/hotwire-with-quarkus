@@ -4,6 +4,12 @@ import one.microstream.storage.embedded.configuration.types.EmbeddedStorageConfi
 import one.microstream.storage.embedded.types.EmbeddedStorageFoundation;
 import one.microstream.storage.embedded.types.EmbeddedStorageManager;
 
+/**
+ * Accessor implementation for the microstream storage manager.
+ *
+ * @author Felix Riess, codecentric AG
+ * @since 09 Sep 2022
+ */
 public final class StorageManagerAccessor {
 
     private static StorageManagerAccessor INSTANCE;
@@ -22,17 +28,28 @@ public final class StorageManagerAccessor {
         this.storageManager.storeRoot();
     }
 
+    /**
+     * Initialize the {@link EmbeddedStorageManager}.
+     */
     public synchronized static void init() {
         if (INSTANCE == null) {
             INSTANCE = new StorageManagerAccessor();
         }
     }
 
+    /**
+     * Get the singleton instance of this {@link StorageManagerAccessor}.
+     *
+     * @return the only instance of {@link StorageManagerAccessor}.
+     */
     public synchronized static StorageManagerAccessor getInstance() {
         init();
         return INSTANCE;
     }
 
+    /**
+     * Gracefully shutdown the storage manager if not yet done.
+     */
     public void shutdown() {
         if (this.storageManager != null) {
             this.storageManager.shutdown();

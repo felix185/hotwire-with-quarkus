@@ -2,6 +2,13 @@ package de.codecentric.todo.core.impl.persistence.microstream;
 
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+/**
+ * Simple implementation of a read-write-locking mechanism.
+ *
+ * @author Felix Riess, codecentric AG
+ * @since 09 Sep 2022
+ * @see <a href="https://github.com/microstream-one/bookstore-demo/blob/master/src/main/java/one/microstream/demo/bookstore/util/concurrent/ReadWriteLocked.java">Microstream demo</a>
+ */
 public class ReadWriteLocked {
 
     private transient volatile ReentrantReadWriteLock mutex;
