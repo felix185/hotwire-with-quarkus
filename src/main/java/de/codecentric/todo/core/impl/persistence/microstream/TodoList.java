@@ -57,7 +57,7 @@ public class TodoList extends ReadWriteLocked {
     }
 
     public UUID update(Todo todo) {
-        write(() -> StorageManagerAccessor.getInstance().getStorageManager().store(this.todoList));
+        write(() -> StorageManagerAccessor.getInstance().getStorageManager().store(todo));
         return todo.getId();
     }
 }
