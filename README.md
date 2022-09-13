@@ -10,7 +10,7 @@ If you want to learn more about Quarkus, please visit its website: https://quark
 ## Starting Keycloak to secure the application
 You can start keycloak via docker: 
 ```shell
-docker-compose -f src/main/docker/docker-compose.yaml up -d
+docker-compose -f src/main/docker/docker-compose.yaml up -d keycloak
 ```
 
 Wait until Keycloak is started (check the logs via `docker logs keycloak`)
@@ -20,6 +20,13 @@ There are two users available:
 - test-user (password test)
 
 admin-user has ADMIN role, test-user is just a standard USER.
+
+## Starting postgres database for microstream storage
+To use storage of todos via microstream you have to start a postgres database via docker:
+```shell
+docker-compose -f src/main/docker/docker-compose.yaml up -d todo-db
+```
+Microstream stores the todos in the postgres database now.
 
 ## Running the application in dev mode
 
