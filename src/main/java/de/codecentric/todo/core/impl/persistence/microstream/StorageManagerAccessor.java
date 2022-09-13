@@ -1,5 +1,6 @@
 package de.codecentric.todo.core.impl.persistence.microstream;
 
+import one.microstream.reflect.ClassLoaderProvider;
 import one.microstream.storage.embedded.configuration.types.EmbeddedStorageConfiguration;
 import one.microstream.storage.embedded.types.EmbeddedStorageFoundation;
 import one.microstream.storage.embedded.types.EmbeddedStorageManager;
@@ -24,6 +25,10 @@ public final class StorageManagerAccessor {
                         Integer.highestOneBit(Runtime.getRuntime().availableProcessors() - 1)
                 ))
                 .createEmbeddedStorageFoundation();
+        // handle changing class definitions at runtime ("hot code replacement" by quarkus by running app in development mode)
+        foundation.onConnectionFoundation(connectionFoundation ->
+                connectionFoundation.setClassLoaderProvider(ClassLoaderProvider.New(Thread.currentThread()
+                                                                                          .getContextClassLoader())));
         this.storageManager = foundation.createEmbeddedStorageManager(new DataRoot()).start();
         this.storageManager.storeRoot();
     }
