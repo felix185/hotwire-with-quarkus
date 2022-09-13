@@ -11,3 +11,19 @@ services:
     volumes:
       - ./config/todo-app-realm.json:/opt/keycloak/data/import/realm.json
     entrypoint: "/opt/keycloak/bin/kc.sh start-dev --import-realm"
+
+  todo-db:
+    image: postgres:14-alpine
+    container_name: todo-db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: todo
+      POSTGRES_USER: todo
+      POSTGRES_PASSWORD: todo
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - todo-db:/var/lib/postgresql/data
+
+volumes:
+  todo-db: {}

@@ -3,6 +3,7 @@ package de.codecentric.todo.core.impl.persistence.microstream;
 import de.codecentric.common.logging.ILogger;
 import io.quarkus.runtime.ShutdownEvent;
 import io.quarkus.runtime.StartupEvent;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
@@ -18,6 +19,13 @@ public class StorageManagerController {
 
     private static final ILogger LOG = ILogger.getLogger(StorageManagerController.class);
 
+    @ConfigProperty(name = "microstream.db.postgres.url")
+    String dbUrl;
+    @ConfigProperty(name = "microstream.db.postgres.user")
+    String dbUser;
+    @ConfigProperty(name = "microstream.db.postgres.password")
+    String dbPassword;
+
     /**
      * Initialize storage manager on quarkus startup.
      *
@@ -25,7 +33,7 @@ public class StorageManagerController {
      */
     public void onStartup(@Observes StartupEvent startupEvent) {
         LOG.info("Initializing storage manager");
-        StorageManagerAccessor.init();
+        StorageManagerAccessor.init(this.dbUrl, this.dbUser, this.dbPassword);
     }
 
     /**
