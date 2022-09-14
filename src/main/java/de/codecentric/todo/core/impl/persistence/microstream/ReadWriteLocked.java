@@ -18,9 +18,11 @@ public class ReadWriteLocked {
     }
 
     private ReentrantReadWriteLock mutex() {
-        synchronized (this) {
-            if (this.mutex == null) {
-                this.mutex = new ReentrantReadWriteLock();
+        if (this.mutex == null) {
+            synchronized (this) {
+                if (this.mutex == null) {
+                    this.mutex = new ReentrantReadWriteLock();
+                }
             }
         }
         return this.mutex;

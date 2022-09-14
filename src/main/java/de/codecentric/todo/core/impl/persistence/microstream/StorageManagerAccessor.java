@@ -25,7 +25,7 @@ public final class StorageManagerAccessor {
 
     private static final ILogger LOG = ILogger.getLogger(StorageManagerAccessor.class);
 
-    private static StorageManagerAccessor INSTANCE;
+    private static volatile StorageManagerAccessor INSTANCE;
 
     private volatile EmbeddedStorageManager storageManager;
 
@@ -72,7 +72,11 @@ public final class StorageManagerAccessor {
         ArgumentChecker.checkNotEmpty(dbUser, "Database user");
         ArgumentChecker.checkNotEmpty(dbPassword, "Database password");
         if (INSTANCE == null) {
-            INSTANCE = new StorageManagerAccessor(dbUrl, dbUser, dbPassword);
+            synchronized (StorageManagerAccessor.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = new StorageManagerAccessor(dbUrl, dbUser, dbPassword);
+                }
+            }
         }
     }
 
@@ -81,7 +85,7 @@ public final class StorageManagerAccessor {
      *
      * @return the only instance of {@link StorageManagerAccessor}.
      */
-    public synchronized static StorageManagerAccessor getInstance() {
+    public static StorageManagerAccessor getInstance() {
         if (INSTANCE == null) {
             LOG.error("Storage Manager is not yet initialized");
             throw new TechnicalException(ErrorCode.ILLEGAL_ACCESS, "Storage Manager is not yet initialized");
@@ -92,7 +96,7 @@ public final class StorageManagerAccessor {
     /**
      * Gracefully shutdown the storage manager if not yet done.
      */
-    public void shutdown() {
+    public synchronized void shutdown() {
         if (this.storageManager != null) {
             this.storageManager.shutdown();
             this.storageManager = null;
