@@ -60,4 +60,11 @@ public class TodoList extends ReadWriteLocked {
         write(() -> StorageManagerAccessor.getInstance().getStorageManager().store(todo));
         return todo.getId();
     }
+
+    @Override
+    public String toString() {
+        return "TodoList{" +
+                "todoList=" + this.todoList +
+                '}';
+    }
 }

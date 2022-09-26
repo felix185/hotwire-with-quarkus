@@ -65,4 +65,14 @@ public class Todo {
     public int hashCode() {
         return Objects.hash(id, userId);
     }
+
+    @Override
+    public String toString() {
+        return "Todo{" +
+                "id=" + this.id +
+                ", name='" + this.name + '\'' +
+                ", completed=" + this.completed +
+                ", userId=" + this.userId +
+                '}';
+    }
 }
